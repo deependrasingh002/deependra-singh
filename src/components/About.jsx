@@ -14,7 +14,7 @@ export default function About() {
     </p>
     <div className="outline outline-2 outline-primary relative h-52 w-52 mb-28 md:mb-0  md:h-64 md:w-64 hover:cursor-pointer md:mt-16">
         <img
-            src="public/depu.png"
+            src="/depu.png"
             alt="Image description"
             className="absolute grayscale hover:grayscale-0 hover:-translate-x-2 hover:-translate-y-2 transition-all duration-500"
         />
