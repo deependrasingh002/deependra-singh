@@ -4,11 +4,11 @@ import { Github, Instagram, Linkedin, Menu, Twitter, X } from "lucide-react";
 import gsap from "gsap";
 import HeroSection from "./HeroSection";
 import About from "./About";
-import HamburgerMenu from "./HamburgerMenu";
+
 
 function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navRef = useRef(null);
+
 
   const navLinks = [
     { id: 1, name: "About Me" },
