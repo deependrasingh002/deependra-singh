@@ -6,7 +6,7 @@ export default function LandingComponent() {
     const helloData = ['Hello', 'नमस्ते', 'Hola', 'Bonjour', 'Nǐn hǎo', 'Konnichiwa'];
 
     const [hello, setHello] = useState(0);
-    const [showHome, setShowHome] = useState(true); // State to determine which component to render
+    const [showHome, setShowHome] = useState(false); // State to determine which component to render
     const [hasCompletedCycle, setHasCompletedCycle] = useState(false);
 
     const backgroundRef = useRef(null);

@@ -49,7 +49,7 @@ function Home() {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center justify-between gap-x-12 min-h-screen">
+        <nav className="hidden lg:flex items-center justify-between gap-x-12">
           <ul className="flex items-center justify-between gap-x-8">
             {navLinks.map((nav) => (
               <li
@@ -72,7 +72,7 @@ function Home() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="absolute top-16 rounded-sm right-0 w-2/3 bg-slate-700 p-5 lg:hidden"
+          <nav className="absolute top-16 rounded-sm right-0 w-2/3 bg-slate-700 p-5 lg:hidden "
           
           >
             <ul className="flex flex-col gap-4">
@@ -95,7 +95,7 @@ function Home() {
       </header>
 
       {/* Left Sidebar */}
-      <aside className="fixed bottom-0 left-20 py-3">
+      <aside className=" md:bottom-0 md:left-20 md:py-3 hidden md:fixed md:block">
         <div className="flex flex-col gap-5">
           <Github className="text-secondaryLight hover:text-primary hover:cursor-pointer transform hover:-translate-y-1 duration-200 ease-linear" size={20} />
           <Instagram className="text-secondaryLight hover:text-primary hover:cursor-pointer transform hover:-translate-y-1 duration-200 ease-linear" size={20} />
@@ -106,7 +106,7 @@ function Home() {
       </aside>
 
       {/* Right Sidebar */}
-      <aside className="fixed bottom-0 -right-10 py-3">
+      <aside className="hidden md:fixed md:bottom-0 md:-right-10 md:py-3 md:block">
         <div className="flex flex-col after:content-[''] after:w-[2px] after:h-20 after:bg-secondaryLight after:block after:mt-52">
           <p className="rotate-90 origin-left text-secondary hover:text-primary hover:cursor-pointer transform hover:-translate-y-1 duration-200 ease-linear">
             <a href="#">singhdepu566@gmail.com</a>

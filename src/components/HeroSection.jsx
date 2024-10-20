@@ -29,15 +29,15 @@ useEffect(()=>{
         <section className="mx-52 my-36">
             <div className="flex flex-col gap-y-4">
                 <h1 className="space-x-10 text-2xl text-primary tracking-wider">Hi, My name is </h1>
-                <h1 className="text-6xl font-bold tracking-wider text-secondary flex items-end gap-x-3">
+                <h1 className="text-3xl md:text-6xl font-bold tracking-wider text-secondary flex items-end gap-x-3">
                     <span>Deependra Singh</span>
-                    <span className="block w-2 h-2 bg-secondary rounded-full mb-2"></span>
+                    <span className="block md:w-2 md:h-2 bg-secondary rounded-full mb-2"></span>
                 </h1>
-                <h1 className="text-6xl font-bold text-slate-400 flex items-end gap-x-3">
+                <h1 className="text-3xl md:text-6xl font-bold text-slate-400 flex items-end gap-x-3 w-[200px] md:w-auto">
                     <span>I built things for Web as Front End Developer</span>
                    
                 </h1>
-                <h1 className="text-4xl font-bold text-slate-400 mt-2" >
+                <h1 className="text-2xl md:text-4xl font-bold text-slate-400 mt-2 w-[200px] md:w-auto" >
                     I&apos;m a Front End Developer with the Skills of React and Next.js and have basic knowledge about Angular.
                 </h1>
                 

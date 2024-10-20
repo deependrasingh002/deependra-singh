@@ -3,7 +3,7 @@ import LandingComponent from './components/LandingComponent'
 
 const App = () => {
   return (
-    <main>
+    <main className='min-h-screen '>
       <LandingComponent/>
     </main>
   )
