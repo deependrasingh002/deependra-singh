@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import  { useState, useEffect } from "react";
 import { Github, Instagram, Linkedin, Menu, Twitter, X } from "lucide-react";
 
 import gsap from "gsap";
 import HeroSection from "./HeroSection";
 import About from "./About";
+import Experience from "./Experience";
 
 
 function Home() {
@@ -30,14 +31,14 @@ function Home() {
     const timeline = gsap.timeline();
     timeline
       .fromTo(".logo", { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 })
-      .fromTo("ul li", { y: -100, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, stagger: 0.3 })
+      .fromTo(".navLinkUL .navLinkLI", { y: -100, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, stagger: 0.4 })
       .fromTo(".resume-btn", { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, "-=0.5")
       .fromTo("aside", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1 });
   }, [isMenuOpen]);
 
   return (
     <main className="bg-gradient-to-r from-slate-500 to-slate-800 min-h-screen">
-      <header className="flex items-center justify-between mx-20 py-3">
+      <header className="flex items-center justify-between mx-4 py-3 md:mx-20 md:py-3">
         {/* Logo */}
         <div className="text-4xl logo text-primary font-extrabold">D.S</div>
 
@@ -50,10 +51,10 @@ function Home() {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center justify-between gap-x-12">
-          <ul className="flex items-center justify-between gap-x-8">
+          <ul className="flex items-center justify-between gap-x-8 navLinkUL">
             {navLinks.map((nav) => (
               <li
-                className="flex items-end gap-1 justify-between hover:text-white hover:cursor-pointer relative cursor-pointer transition-all ease-in-out before:transition-[width] before:ease-in-out before:duration-700 before:absolute before:bg-primary before:origin-center before:h-[1px] before:w-0 hover:before:w-[50%] before:bottom-0 before:left-[50%] after:transition-[width] after:ease-in-out after:duration-700 after:absolute after:bg-primary after:origin-center after:h-[1px] after:w-0 hover:after:w-[50%] after:bottom-0 after:right-[50%]"
+                className="navLinkLI flex items-end gap-1 justify-between hover:text-white hover:cursor-pointer relative cursor-pointer transition-all ease-in-out before:transition-[width] before:ease-in-out before:duration-700 before:absolute before:bg-primary before:origin-center before:h-[1px] before:w-0 hover:before:w-[50%] before:bottom-0 before:left-[50%] after:transition-[width] after:ease-in-out after:duration-700 after:absolute after:bg-primary after:origin-center after:h-[1px] after:w-0 hover:after:w-[50%] after:bottom-0 after:right-[50%]"
                 key={nav.name}
               >
                 <span className=" text-primary">0{nav.id} .</span>
@@ -72,7 +73,7 @@ function Home() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="absolute top-16 rounded-sm right-0 w-2/3 bg-slate-700 p-5 lg:hidden "
+          <nav className="absolute top-16 rounded-sm right-0 w-2/3  p-5 lg:hidden "
           
           >
             <ul className="flex flex-col gap-4">
@@ -117,6 +118,7 @@ function Home() {
 
       <HeroSection />
       <About />
+      <Experience/>
     </main>
   );
 }

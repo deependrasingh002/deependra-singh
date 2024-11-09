@@ -26,18 +26,18 @@ useEffect(()=>{
 
 
     return (
-        <section className="mx-52 my-36">
+        <section className=" mx-4 my-12 md:mx-52 md:my-36">
             <div className="flex  items-center md:items-start flex-col  gap-y-4">
-                <h1 className="space-x-10 text-sm md:text-2xl md:w-full w-20 text-primary tracking-wider">Hi, My name is </h1>
+                <h1 className="space-x-10 text-xl  md:text-2xl w-full text-primary tracking-wider">Hi, My name is </h1>
                 <h1 className="text-3xl md:text-6xl font-bold tracking-wider text-secondary flex items-end gap-x-3">
-                    <span>Deependra Singh</span>
+                    <span className="mr-24 md:mr-0 whitespace-nowrap">Deependra Singh</span>
                     <span className="block md:w-2 md:h-2 bg-secondary rounded-full mb-2"></span>
                 </h1>
-                <h1 className="text-3xl md:text-6xl font-bold text-slate-400 flex items-end gap-x-3 w-[200px] md:w-auto">
+                <h1 className="text-3xl md:text-6xl font-bold text-slate-400 flex items-end gap-x-3 ">
                     <span>I built things for Web as Front End Developer</span>
                    
                 </h1>
-                <h1 className="text-2xl md:text-4xl font-bold text-slate-400 mt-2 w-[200px] md:w-auto" >
+                <h1 className="text-2xl md:text-4xl font-bold text-slate-400 mt-2 " >
                     I&apos;m a Front End Developer with the Skills of React and Next.js and have basic knowledge about Angular.
                 </h1>
                 

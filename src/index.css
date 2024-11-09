@@ -4,10 +4,39 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* Custom Scrollbar for Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 12px; /* Adjust width of scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #495670; /* Third color for scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #64ffda; /* Primary color for scrollbar handle */
+  border-radius: 10px; /* Rounded corners for scrollbar handle */
+  border: 3px solid #ccd6f6; /* Secondary color for border around the handle */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8b2d1; /* Secondary light color when hovered */
+}
+
+
+
+
+
+
 *{
   margin: 0;
   padding: 0;
   font-family: "Arima", system-ui;
+  scrollbar-width: thin;
+  
+
+  scrollbar-color: #64ffda #495670;
 }
 .wave {
   animation-name: wave-animation;  /* Refers to the name of your @keyframes element below */
@@ -15,6 +44,27 @@
   animation-iteration-count: infinite;  /* Never stop waving :) */
   transform-origin: 70% 70%;       /* Pivot around the bottom-left palm */
   display: inline-block;
+}
+
+
+
+
+.link-underline {
+  border-bottom-width: 0;
+  background-image: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
+  background-size: 0 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size .5s ease-in-out;
+}
+
+.link-underline-black {
+  background-image: linear-gradient(transparent, transparent), linear-gradient(#64ffda, #64ffda)
+}
+
+.link-underline:hover {
+  background-size: 100% 2px;
+  background-position: 0 100%
 }
 
 @keyframes wave-animation {
@@ -26,4 +76,51 @@
    50% { transform: rotate(10.0deg) }
    60% { transform: rotate( 0.0deg) }  /* Reset for the last half to pause */
   100% { transform: rotate( 0.0deg) }
+}
+
+
+/* Custom scrollbar for WebKit browsers (Chrome, Safari) */
+.scrollable-container::-webkit-scrollbar {
+  height: 8px; /* Customize the height */
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+  background: #f0f0f0; /* Background of the scrollbar track */
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background-color: #64ffda; /* Scrollbar thumb color */
+  border-radius: 10px;
+  border: 2px solid #64ffda; /* Optional border to add padding around the thumb */
+}
+
+/* Custom scrollbar for Firefox */
+.scrollable-container {
+  scrollbar-width: thin;
+  scrollbar-color: #64ffda; /* thumb color and track color */
+}
+
+
+
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+}
+
+.hover-underline-animation::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #64ffda;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
