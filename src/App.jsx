@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import LandingComponent from './components/LandingComponent';
 import { gsap } from 'gsap';
+import Home from './components/Home';
 
 
 const App = () => {
@@ -47,9 +48,9 @@ const App = () => {
   return (
     <>
       
-        <div className='min-h-screen  container mx-auto'>
+        <div className='min-h-screen w-full '>
         <LandingComponent />
-   
+ 
         </div>
     
     </>
