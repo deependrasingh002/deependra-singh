@@ -1,4 +1,5 @@
 import useScrollFadeIn from '../hooks/useScrollFadeIn'; // Make sure the path is correct
+import Title from './component/Title';
 
 export default function About() {
     const fadeRef = useScrollFadeIn(); // Apply fade-in effect
@@ -13,14 +14,8 @@ export default function About() {
     ];
 
     return (
-        <section ref={fadeRef} className="mx-4 my-12 md:mx-52 md:my-36">
-            <div className="flex flex-row items-center gap-x-5 text-2xl">
-                <span className="text-primary">01.</span>
-                <span className="text-secondary font-bold text-xl md:text-3xl tracking-wider whitespace-nowrap">
-                    About Me
-                </span>
-                <div className="after:content-[''] after:w-20 md:after:w-64 after:h-[2px] after:bg-secondaryLight after:block after:mt-2 mb-3"></div>
-            </div>
+        <section ref={fadeRef} className="mx-4 my-12 md:mx-52 md:my-16">
+             <Title number={1} title='About Me'/>
             
             <div className="mt-6 text-xl text-secondary flex flex-col md:flex-row items-center justify-between">
                 <div>
@@ -45,7 +40,7 @@ export default function About() {
                     </div>
                 </div>
 
-                <div className="outline outline-2 outline-primary relative h-64 w-64 hover:cursor-pointer mt-16">
+                <div className="outline outline-2 outline-primary bg-primary relative h-64 w-64   hover:cursor-pointer mt-16">
                     <img
                         src="/depu.png"
                         alt="Image description"

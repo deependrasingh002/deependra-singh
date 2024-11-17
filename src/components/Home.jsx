@@ -4,6 +4,8 @@ import gsap from "gsap";
 import HeroSection from "./HeroSection";
 import About from "./About";
 import Experience from "./Experience";
+import Projects from "./Projects";
+import Skills from "./Skills";
 
 function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -86,7 +88,7 @@ function Home() {
   }, [isMenuOpen]);
 
   return (
-    <main className="bg-gradient-to-r from-slate-500 to-slate-800 min-h-screen relative">
+    <main className="bg-gradient-to-r from-slate-500 to-slate-800 min-h-screen flex flex-col relative">
       <header className="flex items-center justify-between mx-4 py-3 md:mx-20 md:py-3">
         {/* Logo */}
         <div className="text-4xl logo text-primary font-extrabold">D.S</div>
@@ -163,9 +165,9 @@ function Home() {
       </aside>
 
       {/* Right Sidebar */}
-      <aside className="hidden md:fixed md:bottom-0 md:-right-10 md:py-3 md:block">
-        <div className="flex flex-col after:content-[''] after:w-[2px] after:h-20 after:bg-secondaryLight after:block after:mt-52">
-          <p className="rotate-90 origin-left text-secondary hover:text-primary hover:cursor-pointer transform hover:-translate-y-1 duration-200 ease-linear">
+      <aside className="hidden md:fixed md:bottom-0 md:-right-36 md:py-3 md:block">
+        <div className="flex flex-col after:content-[''] after:w-[2px] after:h-20 after:bg-secondaryLight after:block after:mt-56">
+          <p className="rotate-90 origin-left text-secondary text-opacity-50  hover:text-primary hover:cursor-pointer transform hover:-translate-y-1 duration-200 ease-linear">
             <a href="#">singhdepu566@gmail.com</a>
           </p>
           <div className="ml-2"></div>
@@ -175,6 +177,8 @@ function Home() {
       <HeroSection />
       <About />
       <Experience />
+      <Projects/>
+      <Skills/>
     </main>
   );
 }

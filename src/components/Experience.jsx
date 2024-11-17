@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useScrollFadeIn from '../hooks/useScrollFadeIn'; // Make sure the path is correct
+import Title from "./component/Title";
 
 function Experience() {
   const tabs = [
@@ -13,15 +14,8 @@ function Experience() {
   const fadeRef = useScrollFadeIn(); // Apply fade-in effect to the entire component
 
   return (
-    <section ref={fadeRef} className="mx-4 my-12 md:mx-52 md:my-36">
-      <div className="flex flex-row items-center gap-x-5 text-2xl">
-        <span className="text-primary">01.</span>
-        <span className="text-secondary font-bold md:text-3xl whitespace-nowrap">
-          Where I&apos;ve Worked
-        </span>
-        <div className="after:content-[''] after:w-20 md:after:w-64 after:h-[2px] after:bg-secondaryLight after:block after:mt-2 mb-3"></div>
-      </div>
-
+    <section ref={fadeRef} className="mx-4  md:mx-52 md:my-16">
+      <Title  number={2} title={"Where I've Worked"}/>
       <div className="md:ml-14 md:mx-0 mx-6 mt-6 flex flex-col md:flex-row md:gap-14">
         {/* Sidebar with scrollable tabs */}
         <div className="w-full md:w-1/4 p-4 md:overflow-visible">

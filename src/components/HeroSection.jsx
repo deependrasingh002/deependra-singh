@@ -26,7 +26,7 @@ useEffect(()=>{
 
 
     return (
-        <section className=" mx-4 my-12 md:mx-52 md:my-36">
+        <section className=" mx-4 my-12 md:mx-52 md:my-16">
             <div className="flex  items-center md:items-start flex-col  gap-y-4">
                 <h1 className="space-x-10 text-xl  md:text-2xl w-full text-primary tracking-wider">Hi, My name is </h1>
                 <h1 className="text-3xl md:text-6xl font-bold tracking-wider text-secondary flex items-end gap-x-3">
