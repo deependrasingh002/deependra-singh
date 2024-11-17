@@ -1,7 +1,7 @@
 import { ArrowRightFromLineIcon, ExternalLink, Github, Link } from 'lucide-react';
 import React, { useRef } from 'react'
 
-export default function ProjectCard({ imageSrc, projectName, projectDescription, skills ,githubLink,projectLink }) {
+export default function ProjectCard({ imageSrc, projectName, projectDescription, skills, githubLink, projectLink }) {
 
 
 
@@ -21,17 +21,20 @@ export default function ProjectCard({ imageSrc, projectName, projectDescription,
         />
       </div>
 
-      <div className="flex flex-col  items-center  md:items-end gap-2 md:mb-52">
+      <div className="flex flex-col   items-end gap-2 md:mb-52">
         <span className="text-lg text-primary">Featured Project</span>
         <span className="text-secondary font-bold text-xl md:text-3xl">{projectName}</span>
         {/* Updated the position of p tag to be absolute to the li */}
         {skills && skills.length > 0 && (
-          <ul className="text-secondary flex text-xs md:text-sm md:items-center md:justify-between gap-2 w-[80px] md:w-[370px] mt-4">
+          <ul className="text-secondary grid grid-cols-2  place-content-center md:grid-cols-4 gap-2  mt-4">
             {skills.map((skill, index) => (
-              <li key={index} className='hover:translate-x-[1px] hover:cursor-pointer'>{skill}</li>
+              <li key={index} className='hover:translate-x-[1px] hover:cursor-pointer'>
+                {skill}
+              </li>
             ))}
           </ul>
         )}
+
         <div className="  min-w-fit md:w-[500px] rounded-md  text-primary bg-secondaryLight/60  drop-shadow-xl  ">
           <p className='p-3'>
             {projectDescription}
@@ -39,17 +42,17 @@ export default function ProjectCard({ imageSrc, projectName, projectDescription,
         </div>
 
         <div className='mt-2  mb-2 flex justify-between items-center gap-3'>
-          <a href={githubLink}  target='_blank'>
+          <a href={githubLink} target='_blank'>
 
-          <Github className='text-secondary  hover:cursor-pointer ' size={15} />
+            <Github className='text-secondary  hover:cursor-pointer ' size={15} />
           </a>
           <a href={projectLink} target='_blank'>
 
-          <ExternalLink
-            className="text-secondary hover:cursor-pointer hover:translate-x-[2px] transition-transform duration-300"
-            size={15}
+            <ExternalLink
+              className="text-secondary hover:cursor-pointer hover:translate-x-[2px] transition-transform duration-300"
+              size={15}
             />
-            </a>
+          </a>
 
         </div>
 
