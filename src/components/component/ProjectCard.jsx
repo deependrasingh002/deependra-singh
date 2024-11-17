@@ -23,10 +23,10 @@ export default function ProjectCard({ imageSrc, projectName, projectDescription,
 
       <div className="flex flex-col  items-center  md:items-end gap-2 md:mb-52">
         <span className="text-lg text-primary">Featured Project</span>
-        <span className="text-secondary font-bold text-3xl">{projectName}</span>
+        <span className="text-secondary font-bold text-xl md:text-3xl">{projectName}</span>
         {/* Updated the position of p tag to be absolute to the li */}
         {skills && skills.length > 0 && (
-          <ul className="text-secondary flex text-xs md:text-sm md:items-center md:justify-between gap-2 min-w-fit w-[80px] md:w-[370px] mt-4">
+          <ul className="text-secondary flex text-xs md:text-sm md:items-center md:justify-between gap-2 w-[80px] md:w-[370px] mt-4">
             {skills.map((skill, index) => (
               <li key={index} className='hover:translate-x-[1px] hover:cursor-pointer'>{skill}</li>
             ))}
