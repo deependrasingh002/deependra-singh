@@ -21,7 +21,7 @@ export default function ProjectCard({ imageSrc, projectName, projectDescription,
         />
       </div>
 
-      <div className="flex flex-col   items-end gap-2 md:mb-52">
+      <div className="flex flex-col items-center justify-center    md:items-end gap-2 md:mb-52">
         <span className="text-lg text-primary">Featured Project</span>
         <span className="text-secondary font-bold text-xl md:text-3xl">{projectName}</span>
         {/* Updated the position of p tag to be absolute to the li */}
