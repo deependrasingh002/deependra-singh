@@ -42,6 +42,10 @@
   scrollbar-color: #64ffda #495670;
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
 .navLinkLI {
   will-change: transform;
 }
