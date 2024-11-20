@@ -90,7 +90,7 @@ export default function LandingComponent() {
         <main className="bg-gradient-to-r from-slate-300 to-slate-500 min-h-screen text-white" ref={backgroundRef}>
             <div className="flex items-center justify-center h-screen">
                 <p className="text-4xl md:text-7xl" ref={textRef}>
-                    <span className="bg-gradient-to-r from-slate-500 to-slate-800 bg-clip-text text-transparent" >
+                    <span className="bg-gradient-to-r from-slate-500 to-slate-800 bg-clip-text text-transparent md:text-[100px] font-bold tracking-widest" >
                         {helloData[hello]} {/* Apply gradient only to this text */}
                     </span>
                     <span className="wave" ref={waveRef}>👋</span> {/* Emoji stays outside the gradient */}
