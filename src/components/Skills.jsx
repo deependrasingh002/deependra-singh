@@ -5,11 +5,13 @@ import { IoLogoJavascript } from "react-icons/io5";
 import { SiCplusplus, SiReactquery, SiTailwindcss } from "react-icons/si";
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import useScrollFadeIn from '../hooks/useScrollFadeIn';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function Skills() {
     const skillsRef = useRef(null); // Reference for skills grid
+    const fadeRef = useScrollFadeIn();
 
     const skills = [
         { icon: <FaHtml5 size={50} color='#64ffda' />, name: 'HTML' },
@@ -49,7 +51,7 @@ function Skills() {
     }, []);
 
     return (
-        <section className="mx-4 my-12 md:mx-52 md:my-16">
+        <section ref={fadeRef} className="mx-4 my-12 md:mx-52 md:my-16">
             <Title number={4} title={"Some Skills That I've"} />
             <div className='mt-10 flex items-end justify-center relative'>
                 <button className="before:ease relative h-16 w-44 text-xl overflow-hidden border border-secondary bg-secondary shadow-2xl transition-all before:absolute before:right-0 before:top-0 before:h-12 before:w-6 before:translate-x-12 before:rotate-6 before:bg-white before:opacity-10 before:duration-700 hover:shadow-primary hover:before:-translate-x-40">

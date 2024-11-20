@@ -49,8 +49,8 @@ const App = () => {
     <>
       
         <div className='min-h-screen w-full '>
-        {/* <LandingComponent /> */}
-       <Home/>
+        <LandingComponent />
+   
         </div>
     
     </>

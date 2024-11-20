@@ -1,10 +1,14 @@
 import React from 'react';
 import Title from './component/Title';
 import ProjectCard from './component/ProjectCard';
+import useScrollFadeIn from '../hooks/useScrollFadeIn';
 
 function Projects() {
+
+  const fadeRef = useScrollFadeIn();
+
   return (
-    <section className="mx-4 my-12 md:mx-52 md:my-16">
+    <section ref={fadeRef} className="mx-4 my-12 md:mx-52 md:my-16">
       <Title number={3} title={'Some Things I’ve Built'} />
       <ul className="mt-16 mx-12 flex flex-col items-center  gap-6 ">
         <ProjectCard imageSrc={'/assets/evento.png'} projectName={'Evento Web '} projectDescription="Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum eius, officia ipsum molestiae porro neque

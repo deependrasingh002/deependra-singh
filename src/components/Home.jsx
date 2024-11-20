@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { Github, Instagram, Linkedin, Menu, Twitter, X } from "lucide-react";
+import {  Github, Instagram, Linkedin, Menu, Twitter, X } from "lucide-react";
 import gsap from "gsap";
 import HeroSection from "./HeroSection";
 import About from "./About";
 import Experience from "./Experience";
 import Projects from "./Projects";
 import Skills from "./Skills";
+import Contact from './Contact'
 
 function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -179,6 +180,7 @@ function Home() {
       <Experience />
       <Projects/>
       <Skills/>
+      <Contact/>
     </main>
   );
 }
