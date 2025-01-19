@@ -57,6 +57,14 @@ project-root/
 
 You can deploy the project using platforms like **Vercel**, **Netlify**, or **GitHub Pages**. Ensure the `dist` folder generated after building is deployed.
 
+
+## Contact
+
+If you have any questions or feedback, feel free to reach out:
+
+- Email: [deependra-singh.ui@gmail.com](mailto:deependra-singh.ui@gmail.com)
+- LinkedIn: [https://www.linkedin.com/in/deependrasingh/](https://www.linkedin.com/in/deependrasingh/)
+
 ## License
 
 This project is licensed under the MIT License.
