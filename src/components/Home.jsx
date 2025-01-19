@@ -137,7 +137,7 @@ function Home() {
             ))}
           </ul>
           <button className="cursor-pointer resume-btn transition-all bg-slate-500 text-primary px-5 py-1 rounded-md border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px] border-primary">
-            Resume
+            <a href="DeependraSingh_Resume.pdf" target="_blank">Resume</a>
           </button>
         </nav>
       </header>
