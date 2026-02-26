@@ -1,60 +1,226 @@
-import gsap from "gsap"
-import { useEffect } from "react"
-
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 const HeroSection = () => {
+  const sectionRef = useRef(null);
+  const greetRef = useRef(null);
+  const nameRef = useRef(null);
+  const roleRef = useRef(null);
+  const bioRef = useRef(null);
+  const ctaRef = useRef(null);
+  const scrollRef = useRef(null);
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ delay: 0.3 });
 
-    useEffect(() => {
-
-
-        gsap.fromTo('div h1', {
-            y: 100,
-            opacity: 0,
-
-        }, {
-            y: 0,
-            opacity: 1,
-            duration: 1.4,
-            delay: 1.2,
-            stagger: 0.8
-        }
+      tl.fromTo(
+        greetRef.current,
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: "expo.out" },
+      )
+        .fromTo(
+          nameRef.current,
+          { y: 80, opacity: 0, skewY: 4 },
+          { y: 0, opacity: 1, skewY: 0, duration: 1, ease: "expo.out" },
+          "-=0.4",
         )
-    }, [])
+        .fromTo(
+          roleRef.current,
+          { y: 60, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.9, ease: "expo.out" },
+          "-=0.5",
+        )
+        .fromTo(
+          bioRef.current,
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: "expo.out" },
+          "-=0.4",
+        )
+        .fromTo(
+          ctaRef.current,
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.7, ease: "expo.out" },
+          "-=0.3",
+        )
+        .fromTo(
+          scrollRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.6 },
+          "-=0.2",
+        );
 
+      // Floating scroll indicator
+      gsap.to(scrollRef.current, {
+        y: 8,
+        repeat: -1,
+        yoyo: true,
+        duration: 1.4,
+        ease: "sine.inOut",
+        delay: 2,
+      });
 
+      // Orb parallax on mouse move
+      const handleMouseMove = (e) => {
+        const { innerWidth, innerHeight } = window;
+        const x = (e.clientX / innerWidth - 0.5) * 30;
+        const y = (e.clientY / innerHeight - 0.5) * 30;
+        gsap.to(".hero-orb-1", {
+          x: x * 1.2,
+          y: y * 1.2,
+          duration: 1.2,
+          ease: "power2.out",
+        });
+        gsap.to(".hero-orb-2", {
+          x: -x * 0.8,
+          y: -y * 0.8,
+          duration: 1.4,
+          ease: "power2.out",
+        });
+      };
 
+      window.addEventListener("mousemove", handleMouseMove);
+      return () => window.removeEventListener("mousemove", handleMouseMove);
+    }, sectionRef);
 
-    return (
-        <section className=" mx-4 my-12 md:mx-52 md:my-16">
-            <div className="flex  items-center md:items-start flex-col  gap-y-4">
-                <h1 className="space-x-10 text-xl  md:text-2xl w-full text-primary tracking-wider">Hi, My name is </h1>
-                <h1 className="text-3xl md:text-6xl font-bold tracking-wider text-secondary flex items-end gap-x-3">
-                    <span className="mr-16 md:mr-0 whitespace-nowrap">Deependra Singh</span>
-                    <span className="block md:w-2 md:h-2 bg-secondary rounded-full mb-2"></span>
-                </h1>
-                <h1 className="text-3xl md:text-6xl font-bold text-slate-400 flex items-end gap-x-3 ">
-                    <span>I built things for Web as Front End Developer</span>
+    return () => ctx.revert();
+  }, []);
 
-                </h1>
-                <h1 className="text-2xl md:text-4xl font-bold text-slate-400 mt-2 " >
-                    I&apos;m a Front End Developer with the Skills of React and Next.js and have basic knowledge about Angular.
-                </h1>
+  return (
+    <section
+      ref={sectionRef}
+      className="relative bg-[#080a0f] min-h-screen flex items-center overflow-hidden"
+    >
+      {/* Background orbs */}
+      <div className="hero-orb-1 absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-cyan-500/[0.07] blur-[120px] pointer-events-none" />
+      <div className="hero-orb-2 absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-indigo-500/[0.07] blur-[100px] pointer-events-none" />
 
-                {/* <h1 className="mt-10 mr-8 md:mr-0 relative outline outline-1 outline-primary w-32 h-12 px-7 text-xl py-2  rounded-md bg-transparent text-secondary hover:text-black transform duration-200 ease-out isolation-auto z-10 border-2 border-primary font-semibold hover:cursor-pointer
-        before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-right-full before:hover:right-0 before:rounded-full  before:bg-primary before:-z-10  before:aspect-square before:hover:scale-150 overflow-hidden before:hover:duration-700 ">
-                    Resume
-                </h1> */}
+      {/* Grid overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.025]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+        }}
+      />
 
-                <h1 class="md:mt-10 group relative min-h-[50px] w-40 overflow-hidden border border-primary bg-white  shadow-2xl transition-all before:absolute before:left-0 before:top-0 before:h-0 before:w-1/4 text-black before:bg-primary before:duration-500 after:absolute after:bottom-0 after:right-0 after:h-0 after:w-1/4 after:bg-primary after:duration-500 hover:text-white hover:before:h-full hover:after:h-full active:scale-90">
-                    <span class="top-0 flex h-full w-full items-center justify-center before:absolute before:bottom-0 before:left-1/4 before:z-0 before:h-0 before:w-1/4 before:bg-primary before:duration-500 after:absolute after:right-1/4 after:top-0 after:z-0 after:h-0 after:w-1/4 after:bg-primary after:duration-500 hover:text-white group-hover:before:h-full group-hover:after:h-full"></span>
-                    <span class="absolute bottom-0 left-0 right-0 top-0 z-10 flex h-full w-full items-center justify-center group-hover:text-white font-bold">
-                        <a href="DeependraSingh_Resume.pdf" target="_blank">Resume</a>
-                    </span>
-                </h1>
-            </div>
-        </section>
-    )
-}
+      <div className="max-w-6xl mx-auto px-6 md:px-10 w-full relative z-10 pt-10 pb-24">
+        {/* Greeting */}
+        <div ref={greetRef} className="flex items-center gap-3 mb-6">
+          <span className="w-8 h-px bg-cyan-400" />
+          <p className="text-[13px] font-medium tracking-[4px] uppercase text-cyan-400">
+            Hi, my name is
+          </p>
+        </div>
 
-export default HeroSection
+        {/* Name */}
+        <div className="overflow-hidden mb-4">
+          <h1
+            ref={nameRef}
+            className="text-[clamp(48px,10vw,130px)] font-black leading-[0.9] tracking-tight text-white"
+            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+          >
+            Deependra
+            <br />
+            <span className="[-webkit-text-stroke:1.5px_rgba(255,255,255,0.25)] text-transparent">
+              Singh
+            </span>
+            <span className="inline-block w-3 h-3 md:w-4 md:h-4 rounded-full bg-cyan-400 ml-3 mb-2 align-bottom" />
+          </h1>
+        </div>
+
+        {/* Role */}
+        <div ref={roleRef} className="mb-8">
+          <h2 className="text-[clamp(18px,3vw,32px)] font-light text-white/50 tracking-wide leading-snug max-w-3xl">
+            I build{" "}
+            <span className="text-white font-medium">scalable SharePoint</span>{" "}
+            & <span className="text-white font-medium">Microsoft 365</span>{" "}
+            solutions.
+          </h2>
+        </div>
+
+        {/* Bio */}
+        <p
+          ref={bioRef}
+          className="text-[15px] leading-[1.9] text-white/35 font-light max-w-2xl mb-12"
+        >
+          I'm a SharePoint Developer with over one year of professional
+          experience, specializing in{" "}
+          <span className="text-white/60">SPFx development</span>,{" "}
+          <span className="text-white/60">Power Platform solutions</span>, and
+          building enterprise-grade applications that enhance productivity and
+          streamline workflows.
+        </p>
+
+        {/* CTA */}
+        <div ref={ctaRef} className="flex items-center gap-4 flex-wrap">
+          <a
+            href="DeependraSingh_Resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="group relative inline-flex items-center gap-3 text-[12px] font-medium tracking-[2px] uppercase bg-cyan-400 text-[#080a0f] px-7 py-3.5 rounded overflow-hidden transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)]"
+          >
+            <span className="relative z-10">View Resume</span>
+            <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+            <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300" />
+          </a>
+
+          {/* <a
+            href="#contact"
+            className="inline-flex items-center gap-2 text-[12px] font-medium tracking-[2px] uppercase text-white/50 border border-white/10 px-7 py-3.5 rounded hover:text-white hover:border-white/30 hover:bg-white/[0.03] transition-all duration-300"
+          >
+            Get In Touch
+          </a> */}
+        </div>
+
+        {/* Tech stack pills */}
+        <div className="mt-16 flex flex-wrap gap-2">
+          {[
+            "SharePoint",
+            "SPFx",
+            "React.js",
+            "TypeScript",
+            "Power Automate",
+          ].map((tech) => (
+            <span
+              key={tech}
+              className="text-[11px] text-white/25 border border-white/[0.07] px-3 py-1.5 rounded-full tracking-wide hover:text-white/50 hover:border-white/20 transition-all duration-300 cursor-default"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div
+        ref={scrollRef}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <span className="text-[10px] tracking-[3px] uppercase text-white/20">
+          Scroll
+        </span>
+        <div className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent" />
+      </div>
+
+      {/* Corner decoration */}
+      <div className="absolute top-28 right-10 hidden lg:block">
+        <div className="relative w-40 h-40 opacity-20">
+          <div className="absolute inset-0 border border-white/20 rounded-full animate-[spin_20s_linear_infinite]" />
+          <div className="absolute inset-4 border border-cyan-400/30 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
+          <div className="absolute inset-8 border border-white/10 rounded-full animate-[spin_10s_linear_infinite]" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-[10px] tracking-widest text-white/40 uppercase">
+              Dev
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default HeroSection;
