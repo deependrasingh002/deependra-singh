@@ -1,8 +1,12 @@
-import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { useEffect, useRef, useState } from "react";
+import useSound from "use-sound";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Same remote click sound as Home.jsx. Swap for any direct .mp3/.ogg/.wav link.
+const CLICK_SOUND_URL = "/public/sounds/faaah.mp3";
 
 const tabs = [
   {
@@ -78,11 +82,18 @@ export default function Experience() {
   const contentRef = useRef(null);
   const sidebarRef = useRef(null);
 
+  // Click sound (html5: true lets cross-origin URLs play without CORS setup)
+  const [playClick] = useSound(CLICK_SOUND_URL, {
+    volume: 0.5,
+    interrupt: true,
+  });
+
   const activeTabData = tabs.find((tab) => tab.id === activeTab);
 
   // Content transition on tab change
   const handleTabChange = (id) => {
     if (id === activeTab) return;
+    playClick();
     gsap.to(contentRef.current, {
       opacity: 0,
       y: 16,

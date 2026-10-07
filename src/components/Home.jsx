@@ -1,15 +1,19 @@
-import { useState, useEffect, useRef } from "react";
-import { Github, Instagram, Linkedin, Twitter, Menu, X } from "lucide-react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import HeroSection from "./HeroSection";
+import { Github, Linkedin, Menu, Twitter, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import useSound from "use-sound";
 import About from "./About";
+import Contact from "./Contact";
 import Experience from "./Experience";
+import HeroSection from "./HeroSection";
 import Projects from "./Projects";
 import Skills from "./Skills";
-import Contact from "./Contact";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Remote click sound. Swap for any direct .mp3/.ogg/.wav link.
+const CLICK_SOUND_URL = "/public/sounds/Surprise.mp3";
 
 const socialLinks = [
   {
@@ -23,13 +27,18 @@ const socialLinks = [
     label: "LinkedIn",
   },
   { icon: Twitter, href: "https://x.com/singhdepu566", label: "Twitter" },
-  // { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
 ];
 
 function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState(0);
+
+  // Click sound (html5: true lets cross-origin URLs play without CORS setup)
+  const [playClick] = useSound(CLICK_SOUND_URL, {
+    volume: 0.5,
+    interrupt: true,
+  });
 
   const aboutRef = useRef(null);
   const experienceRef = useRef(null);
@@ -47,6 +56,7 @@ function Home() {
   ];
 
   const scrollToSection = (ref, index) => {
+    playClick();
     ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     setActiveSection(index);
     setIsMenuOpen(false);
@@ -137,7 +147,8 @@ function Home() {
         {/* Logo */}
         <div
           ref={logoRef}
-          className="text-3xl font-extrabold tracking-widest leading-none relative"
+          onClick={() => playClick()}
+          className="text-3xl font-extrabold tracking-widest leading-none relative cursor-pointer"
           style={{ fontFamily: "'Bebas Neue', sans-serif" }}
         >
           D<span className="text-cyan-400">.</span>S
@@ -175,6 +186,7 @@ function Home() {
             href="DeependraSingh_Resume.pdf"
             target="_blank"
             rel="noreferrer"
+            onClick={() => playClick()}
             className="resume-btn text-[11px] font-medium tracking-[2px] uppercase text-cyan-400 border border-cyan-400/40 px-5 py-2.5 rounded hover:bg-cyan-400/10 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(0,212,255,0.2)] transition-all duration-300"
           >
             Resume
@@ -184,7 +196,10 @@ function Home() {
         {/* Hamburger */}
         <button
           className="lg:hidden text-white/70 hover:text-white transition-colors"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          onClick={() => {
+            playClick();
+            setIsMenuOpen(!isMenuOpen);
+          }}
           aria-label="Toggle menu"
         >
           <Menu size={22} />
@@ -202,7 +217,11 @@ function Home() {
             <div className="flex justify-end mb-12">
               <button
                 className="text-white/40 hover:text-white transition-colors"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => {
+                  playClick();
+                  setIsMenuOpen(false);
+                }}
+                aria-label="Close menu"
               >
                 <X size={22} />
               </button>
@@ -231,6 +250,7 @@ function Home() {
               href="DeependraSingh_Resume.pdf"
               target="_blank"
               rel="noreferrer"
+              onClick={() => playClick()}
               className="mt-10 text-center text-[11px] font-medium tracking-[2px] uppercase text-cyan-400 border border-cyan-400/40 px-6 py-3 rounded hover:bg-cyan-400/10 transition-all duration-300"
             >
               Resume
@@ -248,6 +268,7 @@ function Home() {
             target="_blank"
             rel="noreferrer"
             aria-label={label}
+            onClick={() => playClick()}
             className="text-white/30 hover:text-cyan-400 hover:-translate-y-1 transition-all duration-300"
           >
             <Icon size={17} />

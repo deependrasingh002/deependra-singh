@@ -1,5 +1,6 @@
-import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
+import { useEffect, useRef, useState } from "react";
+import useSound from "use-sound";
 import Home from "./Home";
 
 const helloData = [
@@ -11,10 +12,19 @@ const helloData = [
   { text: "Konnichiwa", lang: "Japanese" },
 ];
 
+const SLIDE_HOLD_MS = 700;
+
 export default function LandingComponent() {
+  const [started, setStarted] = useState(false);
   const [helloIndex, setHelloIndex] = useState(0);
   const [showHome, setShowHome] = useState(false);
   const [hasCompletedCycle, setHasCompletedCycle] = useState(false);
+
+  // use-sound setup
+  const [playTransition] = useSound("public/sounds/transition.mp3", {
+    volume: 0.5,
+    interrupt: true,
+  });
 
   const containerRef = useRef(null);
   const textRef = useRef(null);
@@ -24,138 +34,187 @@ export default function LandingComponent() {
   const dotsRef = useRef(null);
   const progressRef = useRef(null);
 
+  // Play sound during the user gesture to satisfy browser autoplay policies
+  const handleEnter = () => {
+    playTransition();
+    setStarted(true);
+  };
+
   // Entrance animation
   useEffect(() => {
-    const tl = gsap.timeline();
+    if (!started || !containerRef.current) return;
 
-    // Background panels slide in from top
-    tl.fromTo(
-      overlayRef.current,
-      { scaleY: 0, transformOrigin: "top" },
-      { scaleY: 1, duration: 0.8, ease: "expo.inOut" },
-    )
-      .fromTo(
-        containerRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.3 },
-        "-=0.1",
-      )
-      // Main text drops in
-      .fromTo(
-        textRef.current,
-        { y: 80, opacity: 0, skewY: 6 },
-        { y: 0, opacity: 1, skewY: 0, duration: 1, ease: "expo.out" },
-        "-=0.1",
-      )
-      // Lang label fades in
-      .fromTo(
-        langRef.current,
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, ease: "expo.out" },
-        "-=0.5",
-      )
-      // Emoji bounces in
-      .fromTo(
-        emojiRef.current,
-        { scale: 0, opacity: 0, rotate: -30 },
-        { scale: 1, opacity: 1, rotate: 0, duration: 0.7, ease: "back.out(2)" },
-        "-=0.4",
-      )
-      // Dots fade in
-      .fromTo(
-        dotsRef.current?.querySelectorAll(".dot"),
-        { scale: 0, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          stagger: 0.08,
-          duration: 0.4,
-          ease: "back.out(2)",
-        },
-        "-=0.3",
-      );
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline();
 
-    // Continuous emoji float
-    gsap.to(emojiRef.current, {
-      y: -12,
-      rotate: 15,
-      duration: 0.8,
-      yoyo: true,
-      repeat: -1,
-      ease: "sine.inOut",
-    });
+      if (overlayRef.current) {
+        tl.fromTo(
+          overlayRef.current,
+          { scaleY: 0, transformOrigin: "top" },
+          { scaleY: 1, duration: 0.8, ease: "expo.inOut" },
+        );
+      }
 
-    // Progress bar
-    gsap.to(progressRef.current, {
-      scaleX: 1,
-      transformOrigin: "left",
-      duration: helloData.length * 1.0,
-      ease: "none",
-    });
-  }, []);
+      if (containerRef.current) {
+        tl.fromTo(
+          containerRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.3 },
+          "-=0.1",
+        );
+      }
 
-  // Cycle through greetings
+      if (textRef.current) {
+        tl.fromTo(
+          textRef.current,
+          { y: 80, opacity: 0, skewY: 6 },
+          { y: 0, opacity: 1, skewY: 0, duration: 1, ease: "expo.out" },
+          "-=0.1",
+        );
+      }
+
+      if (langRef.current) {
+        tl.fromTo(
+          langRef.current,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6, ease: "expo.out" },
+          "-=0.5",
+        );
+      }
+
+      if (emojiRef.current) {
+        tl.fromTo(
+          emojiRef.current,
+          { scale: 0, opacity: 0, rotate: -30 },
+          {
+            scale: 1,
+            opacity: 1,
+            rotate: 0,
+            duration: 0.7,
+            ease: "back.out(2)",
+          },
+          "-=0.4",
+        );
+
+        gsap.to(emojiRef.current, {
+          y: -12,
+          rotate: 15,
+          duration: 0.8,
+          yoyo: true,
+          repeat: -1,
+          ease: "sine.inOut",
+        });
+      }
+
+      const dots = dotsRef.current?.querySelectorAll(".dot");
+      if (dots && dots.length > 0) {
+        tl.fromTo(
+          dots,
+          { scale: 0, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            stagger: 0.08,
+            duration: 0.4,
+            ease: "back.out(2)",
+          },
+          "-=0.3",
+        );
+      }
+
+      if (progressRef.current) {
+        gsap.to(progressRef.current, {
+          scaleX: 1,
+          transformOrigin: "left",
+          duration: helloData.length * 1.0,
+          ease: "none",
+        });
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [started]);
+
+  // Greeting cycling: hold -> animate out -> next index
   useEffect(() => {
-    if (hasCompletedCycle) return;
+    if (!started || hasCompletedCycle) return;
 
-    const interval = setInterval(() => {
-      setHelloIndex((prev) => {
-        if (prev === helloData.length - 1) {
-          clearInterval(interval);
-          setHasCompletedCycle(true);
-          return prev;
-        }
+    const isLast = helloIndex === helloData.length - 1;
 
-        // Animate out current text
-        gsap.to([textRef.current, langRef.current], {
+    const timeout = setTimeout(() => {
+      if (isLast) {
+        setHasCompletedCycle(true);
+        return;
+      }
+
+      const targets = [textRef.current, langRef.current].filter(Boolean);
+      if (targets.length > 0) {
+        gsap.to(targets, {
           y: -40,
           opacity: 0,
           duration: 0.3,
           ease: "power2.in",
-          onComplete: () => {
-            // Will be updated by state, then animate in
-          },
+          onComplete: () => setHelloIndex((prev) => prev + 1),
         });
+      } else {
+        setHelloIndex((prev) => prev + 1);
+      }
+    }, SLIDE_HOLD_MS);
 
-        return prev + 1;
-      });
-    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [started, helloIndex, hasCompletedCycle]);
 
-    return () => clearInterval(interval);
-  }, [hasCompletedCycle]);
-
-  // Animate in new text when index changes
+  // On every subsequent slide change: play sound + animate new text in
   useEffect(() => {
-    if (helloIndex === 0) return;
-    gsap.fromTo(
-      textRef.current,
-      { y: 60, opacity: 0, skewY: 4 },
-      { y: 0, opacity: 1, skewY: 0, duration: 0.55, ease: "expo.out" },
-    );
-    gsap.fromTo(
-      langRef.current,
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.4, ease: "expo.out", delay: 0.1 },
-    );
-  }, [helloIndex]);
+    if (!started || helloIndex === 0) return;
 
-  // Exit animation → show Home
+    playTransition();
+
+    if (textRef.current) {
+      gsap.fromTo(
+        textRef.current,
+        { y: 60, opacity: 0, skewY: 4 },
+        { y: 0, opacity: 1, skewY: 0, duration: 0.55, ease: "expo.out" },
+      );
+    }
+
+    if (langRef.current) {
+      gsap.fromTo(
+        langRef.current,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, ease: "expo.out", delay: 0.1 },
+      );
+    }
+  }, [started, helloIndex, playTransition]);
+
+  // Exit animation -> show Home
   useEffect(() => {
     if (!hasCompletedCycle) return;
+
+    const exitTargets = [
+      textRef.current,
+      langRef.current,
+      emojiRef.current,
+    ].filter(Boolean);
+    const dots = dotsRef.current?.querySelectorAll(".dot");
 
     const tl = gsap.timeline({
       onComplete: () => setShowHome(true),
     });
 
-    tl.to([textRef.current, langRef.current, emojiRef.current], {
-      y: -60,
-      opacity: 0,
-      stagger: 0.06,
-      duration: 0.5,
-      ease: "power3.in",
-    })
-      .to(
-        dotsRef.current?.querySelectorAll(".dot"),
+    if (exitTargets.length > 0) {
+      tl.to(exitTargets, {
+        y: -60,
+        opacity: 0,
+        stagger: 0.06,
+        duration: 0.5,
+        ease: "power3.in",
+      });
+    }
+
+    if (dots && dots.length > 0) {
+      tl.to(
+        dots,
         {
           scale: 0,
           opacity: 0,
@@ -164,8 +223,11 @@ export default function LandingComponent() {
           ease: "power2.in",
         },
         "-=0.3",
-      )
-      .to(
+      );
+    }
+
+    if (overlayRef.current) {
+      tl.to(
         overlayRef.current,
         {
           scaleY: 0,
@@ -175,9 +237,29 @@ export default function LandingComponent() {
         },
         "-=0.1",
       );
+    }
+
+    return () => tl.kill();
   }, [hasCompletedCycle]);
 
   if (showHome) return <Home />;
+
+  // Initial landing button
+  if (!started) {
+    return (
+      <main className="bg-[#080a0f] min-h-screen flex flex-col items-center justify-center gap-6">
+        <button
+          onClick={handleEnter}
+          className="px-8 py-3 rounded-full border border-white/20 text-white/80 text-xs tracking-[4px] uppercase hover:border-cyan-400 hover:text-cyan-400 transition-colors duration-300 cursor-pointer"
+        >
+          Enter
+        </button>
+        <p className="text-[10px] tracking-[3px] uppercase text-white/20">
+          Sound on 🔊
+        </p>
+      </main>
+    );
+  }
 
   return (
     <main
@@ -213,7 +295,6 @@ export default function LandingComponent() {
 
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center gap-4 text-center px-6">
-        {/* Lang label */}
         <p
           ref={langRef}
           className="text-[11px] tracking-[4px] uppercase text-white/30 font-medium"
@@ -221,7 +302,6 @@ export default function LandingComponent() {
           {helloData[helloIndex].lang}
         </p>
 
-        {/* Main greeting */}
         <div className="flex items-center gap-4 md:gap-6">
           <h1
             ref={textRef}
