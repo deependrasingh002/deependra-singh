@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import useSound from "use-sound";
 
 gsap.registerPlugin(ScrollTrigger);
-
+// qwdqwd
 // Same remote click sound as Home.jsx. Swap for any direct .mp3/.ogg/.wav link.
 const CLICK_SOUND_URL = "/public/sounds/faaah.mp3";
 

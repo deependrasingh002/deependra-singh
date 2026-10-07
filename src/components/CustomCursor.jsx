@@ -5,7 +5,7 @@ const CustomCursor = () => {
   const ringRef = useRef(null);
   const dotRef = useRef(null);
   const trailsRef = useRef([]);
-
+  // qwdqwd
   useEffect(() => {
     // Hide default cursor
     document.body.style.cursor = "none";
@@ -132,7 +132,7 @@ const CustomCursor = () => {
       <div
         ref={ringRef}
         className="fixed top-0 left-0 z-[9998] w-8 h-8 rounded-full border border-cyan-400/70 pointer-events-none"
-        style={{ willChange: "transform" }} 
+        style={{ willChange: "transform" }}
       />
 
       {/* Trailing balls */}

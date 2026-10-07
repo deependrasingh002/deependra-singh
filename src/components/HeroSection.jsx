@@ -24,7 +24,7 @@ const HeroSection = () => {
           { y: 80, opacity: 0, skewY: 4 },
           { y: 0, opacity: 1, skewY: 0, duration: 1, ease: "expo.out" },
           "-=0.4",
-        )
+        ) // qwdqwd
         .fromTo(
           roleRef.current,
           { y: 60, opacity: 0 },

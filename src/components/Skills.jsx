@@ -84,6 +84,8 @@ function Skills() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Heading reveal
+
+      // qwdqwd
       gsap.fromTo(
         headingRef.current,
         { opacity: 0, y: 60, skewY: 4 },

@@ -4,7 +4,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
-
+// qwdqwd
 const projects = [
   {
     number: '01',

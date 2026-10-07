@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Remote click sound. Swap for any direct .mp3/.ogg/.wav link.
 const CLICK_SOUND_URL = "/public/sounds/Surprise.mp3";
-
+// qwdqwd
 const socialLinks = [
   {
     icon: Github,
