@@ -21,7 +21,7 @@ export default function LandingComponent() {
   const [hasCompletedCycle, setHasCompletedCycle] = useState(false);
   // qwdqwd
   // use-sound setup
-  const [playTransition] = useSound("public/sounds/transition.mp3", {
+  const [playTransition] = useSound("/sounds/transition.mp3", {
     volume: 0.5,
     interrupt: true,
   });
